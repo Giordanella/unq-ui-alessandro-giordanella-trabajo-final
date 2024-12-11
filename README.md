@@ -1,13 +1,20 @@
-# UNQ UI Vite + React + Bootstrap template
+# Trabajo Final Integrador (TFI): *Memotest*
 
-Para correr el proyecto correr:
+#### Sigue los pasos a continuación para instalar y ejecutar el proyecto localmente.
+
+- *Clonar el repositorio:*
+
+```bash
+git clone https://github.com/Giordanella/unq-ui-alessandro-giordanella-trabajo-final.git
+```
+- *Instalar dependencias:* Una vez clonado el repositorio, accede a la carpeta del proyecto y ejecuta:
 
 ```bash
 npm install
 ```
-seguido de:
+- *Ejecutar el proyecto localmente:* Para ejecutar el proyecto de manera local en tu máquina, usa el siguiente comando:
 
 ```bash
 npm run dev
 ```
-Por ultimo, subir en sus respectivos repositorios, dentro de la carpeta web.
+Esto abrirá el juego en tu navegador por defecto en ```http://localhost:5173```.
