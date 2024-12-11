@@ -2,16 +2,18 @@ import "./App.css";
 import Tablero from "./components/Tablero.jsx";
 import { useEffect, useState } from "react";
 
-const App = () => {
-    const numeros = [0, 1, 2, 3, 4, 5, 6, 7];
+const numeros = [0, 1, 2, 3, 4, 5, 6, 7];
 
+const App = () => {
     const [celdas, setCeldas] = useState([]);
+    const [celdaElegida, setCeldaElegida] = useState(null);
+    const [animacion, setAnimacion] = useState(false);
 
     useEffect(() => {
         const elementosBarajados = barajarElementos([...numeros, ...numeros]);
         setCeldas(
             elementosBarajados.map(
-                (elemento, i) => ({ index: i, elemento: elemento })
+                (elemento, i) => ({ index: i, elemento: elemento, girada: false })
             ));
     }, []);
 
@@ -23,9 +25,37 @@ const App = () => {
         return array;
     };
 
+    const clickHandler = (celda) => {
+        const celdaGirada = { ...celda, girada: true };
+        let celdasCopia = [...celdas];
+        celdasCopia.splice(celda.index, 1, celdaGirada);
+        setCeldas(celdasCopia);
+    
+        if (celdaElegida === null) {
+            setCeldaElegida(celda);
+        }
+        else if (celdaElegida.elemento === celda.elemento) {
+            setCeldaElegida(null);
+        }
+        else {
+            setAnimacion(true);
+            setTimeout(() => {
+                restaurarCeldasTrasAnimacion(celdasCopia, celda, celdaElegida);
+            }, 1000);
+        }
+    };
+
+    const restaurarCeldasTrasAnimacion = (modificadas, original, elegida) => {
+        modificadas.splice(original.index, 1, original);
+        modificadas.splice(elegida.index, 1, elegida);
+        setCeldas(modificadas);
+        setCeldaElegida(null);
+        setAnimacion(false);
+    };
+
     return (
         <div className="app">
-            <Tablero celdas={celdas} />
+            <Tablero celdas={celdas} animacion={animacion} clickHandler={clickHandler} />
         </div>
     );
 };

@@ -1,11 +1,36 @@
 .celda {
-    align-items: center;
     aspect-ratio: 1 / 1;
-    background-color: goldenrod;
-    border-radius: 50%;
     cursor: pointer;
+}
+.celda-estado {
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.6s;
+    text-align: center;
+    width: 100%;
+}
+.celda-frente, .celda-reverso {
+    backface-visibility: hidden;
+    border-radius: 50%;
+    height: 100%;
+    position: absolute;
+    width: 100%;
+    -webkit-backface-visibility: hidden;
+}
+.celda-frente {
+    background-color: darkviolet;
+}
+.celda-reverso {
+    align-items: center;
+    background-color: deeppink;
+    box-shadow: 5px 5px 10px 0px rgb(0 0 0 / 50%);
+    color: white;
     display: flex;
-    font-size: 20px;
-    font-weight: bold;
+    font-size: 36px;
     justify-content: center;
+    transform: rotateY(180deg);
+}
+.celda-girada {
+    transform: rotateY(180deg);
 }

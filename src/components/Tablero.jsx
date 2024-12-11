@@ -1,9 +1,16 @@
 import "./Tablero.css";
 import Celda from "./Celda.jsx";
 
-const Tablero = ({ celdas }) => {
+const Tablero = ({ celdas, animacion, clickHandler }) => {
     const generarCelda = (celda, i) => {
-        return <Celda key={`${celda.elemento}_${i}`} celda={celda} />;
+        return (
+            <Celda 
+                key={`${celda.elemento}_${i}`} 
+                celda={celda} 
+                animacion={animacion} 
+                clickHandler={clickHandler} 
+            />
+        );
     };
 
     return (
