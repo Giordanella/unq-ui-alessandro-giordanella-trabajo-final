@@ -1,5 +1,5 @@
 import "./Tablero.css";
-import Celda from "./Celda.jsx";
+import Celda from "../Celda/Celda.jsx";
 
 const Tablero = ({ celdas, animacion, clickHandler }) => {
     const generarCelda = (celda, i) => {

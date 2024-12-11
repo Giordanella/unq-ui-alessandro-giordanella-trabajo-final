@@ -1,8 +1,9 @@
 import "./App.css";
-import Tablero from "./components/Tablero.jsx";
+import Tablero from "./components/Tablero/Tablero.jsx";
 import { useEffect, useState } from "react";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Temporizador from "./components/Temporizador/Temporizador.jsx";
 
 const numeros = [0, 1, 2, 3, 4, 5, 6, 7];
 const animales = ['🐶', '🐱', '🐰', '🐻', '🦁', '🐯', '🐸', '🐵'];
@@ -15,6 +16,8 @@ const App = () => {
     const [celdaElegida, setCeldaElegida] = useState(null);
     const [animacion, setAnimacion] = useState(false);
     const [paresResueltos, setParesResueltos] = useState(0);
+    const [tiempo, setTiempo] = useState(0);
+    const [terminado, setTerminado] = useState(false);
 
     useEffect(() => {
         const elementos = elegirElementoAleatorio();
@@ -29,7 +32,18 @@ const App = () => {
     useEffect(() => {
         if (paresResueltos === 8) {
             toast.success("¡Ganaste la partida!");
+            setTerminado(true);
         }
+    }, [paresResueltos]);
+
+    useEffect(() => {
+        if (paresResueltos === 8) return;
+
+        const intervalo = setInterval(() => {
+            setTiempo((prevTiempo) => prevTiempo + 1);
+        }, 1000);
+
+        return () => clearInterval(intervalo);
     }, [paresResueltos]);
 
     const elegirElementoAleatorio = () => {
@@ -76,6 +90,7 @@ const App = () => {
     return (
         <div className="app">
             <Tablero celdas={celdas} animacion={animacion} clickHandler={clickHandler} />
+            <Temporizador tiempo={tiempo} terminado={terminado} />
             <ToastContainer />
         </div>
     );
