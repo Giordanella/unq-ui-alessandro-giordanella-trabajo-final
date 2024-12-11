@@ -1,7 +1,7 @@
 .tablero {
     display: grid;
-    grid-gap: 10px;
+    gap: 10px;
     grid-template-columns: repeat(4, 1fr);
-    margin: 100px auto;
-    max-width: 400px;
+    height: 500px;
+    width: 500px;
 }
