@@ -11,9 +11,14 @@
     width: 100%;
 }
 .celda-frente, .celda-reverso {
+    align-items: center;
     backface-visibility: hidden;
     border-radius: 50%;
+    color: white;
+    display: flex;
+    font-size: 36px;
     height: 100%;
+    justify-content: center;
     position: absolute;
     width: 100%;
     -webkit-backface-visibility: hidden;
@@ -22,13 +27,7 @@
     background-color: darkviolet;
 }
 .celda-reverso {
-    align-items: center;
     background-color: deeppink;
-    box-shadow: 5px 5px 10px 0px rgb(0 0 0 / 50%);
-    color: white;
-    display: flex;
-    font-size: 36px;
-    justify-content: center;
     transform: rotateY(180deg);
 }
 .celda-girada {

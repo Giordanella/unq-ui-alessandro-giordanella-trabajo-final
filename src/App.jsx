@@ -5,6 +5,10 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const numeros = [0, 1, 2, 3, 4, 5, 6, 7];
+const animales = ['🐶', '🐱', '🐰', '🐻', '🦁', '🐯', '🐸', '🐵'];
+const celebraciones = ['🎉', '🎂', '🎁', '🎈', '🎶', '🥂', '🍾', '🎤'];
+const comida = ['🍕', '🍔', '🍣', '🍦', '🍩', '🍪', '🍿', '🍫'];
+const deportes = ['⚽', '🏀', '🏈', '🎾', '🏐', '🏏', '🏓', '🥋'];
 
 const App = () => {
     const [celdas, setCeldas] = useState([]);
@@ -13,19 +17,26 @@ const App = () => {
     const [paresResueltos, setParesResueltos] = useState(0);
 
     useEffect(() => {
-        const elementosBarajados = barajarElementos([...numeros, ...numeros]);
+        const elementos = elegirElementoAleatorio();
+        const elementosBarajados = barajarElementos([...elementos, ...elementos]);
         setCeldas(
             elementosBarajados.map(
                 (elemento, i) => ({ index: i, elemento: elemento, girada: false })
-            ));
+            )
+        );
     }, []);
 
     useEffect(() => {
-        // Está hardcodeado, perdón :(
         if (paresResueltos === 8) {
             toast.success("¡Ganaste la partida!");
         }
     }, [paresResueltos]);
+
+    const elegirElementoAleatorio = () => {
+        const listas = [numeros, animales, celebraciones, comida, deportes];
+        const listaAleatoria = listas[Math.floor(Math.random() * listas.length)];
+        return listaAleatoria;
+    };
 
     const barajarElementos = (array) => {
         for (let i = array.length - 1; i > 0; i--) {
@@ -40,15 +51,13 @@ const App = () => {
         let celdasCopia = [...celdas];
         celdasCopia.splice(celda.index, 1, celdaGirada);
         setCeldas(celdasCopia);
-    
+
         if (celdaElegida === null) {
             setCeldaElegida(celda);
-        }
-        else if (celdaElegida.elemento === celda.elemento) {
+        } else if (celdaElegida.elemento === celda.elemento) {
             setCeldaElegida(null);
             setParesResueltos((prev) => prev + 1);
-        }
-        else {
+        } else {
             setAnimacion(true);
             setTimeout(() => {
                 restaurarCeldasTrasAnimacion(celdasCopia, celda, celdaElegida);
