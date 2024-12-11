@@ -1,6 +1,8 @@
 import "./App.css";
 import Tablero from "./components/Tablero.jsx";
 import { useEffect, useState } from "react";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const numeros = [0, 1, 2, 3, 4, 5, 6, 7];
 
@@ -8,6 +10,7 @@ const App = () => {
     const [celdas, setCeldas] = useState([]);
     const [celdaElegida, setCeldaElegida] = useState(null);
     const [animacion, setAnimacion] = useState(false);
+    const [paresResueltos, setParesResueltos] = useState(0);
 
     useEffect(() => {
         const elementosBarajados = barajarElementos([...numeros, ...numeros]);
@@ -16,6 +19,13 @@ const App = () => {
                 (elemento, i) => ({ index: i, elemento: elemento, girada: false })
             ));
     }, []);
+
+    useEffect(() => {
+        // Está hardcodeado, perdón :(
+        if (paresResueltos === 8) {
+            toast.success("¡Ganaste la partida!");
+        }
+    }, [paresResueltos]);
 
     const barajarElementos = (array) => {
         for (let i = array.length - 1; i > 0; i--) {
@@ -36,6 +46,7 @@ const App = () => {
         }
         else if (celdaElegida.elemento === celda.elemento) {
             setCeldaElegida(null);
+            setParesResueltos((prev) => prev + 1);
         }
         else {
             setAnimacion(true);
@@ -56,6 +67,7 @@ const App = () => {
     return (
         <div className="app">
             <Tablero celdas={celdas} animacion={animacion} clickHandler={clickHandler} />
+            <ToastContainer />
         </div>
     );
 };
